@@ -6,3 +6,5 @@ parkinsons_Model.ipynb
 prof_metrics(NCF).txt
 __pycache__/
 .ipynb_checkpoints/ 
+
+models/__pycache__
