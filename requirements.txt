@@ -1,0 +1,46 @@
+# ============================================================
+# Parkinson's Disease EEG – NeuroConvFormer-Lite
+# Research-grade dependencies
+# ============================================================
+
+# -------------------------
+# Core Python / Utilities
+# -------------------------
+numpy==1.26.4
+scipy==1.11.4
+pandas==2.1.4
+tqdm==4.66.1
+
+# -------------------------
+# Deep Learning (PyTorch)
+# -------------------------
+torch==2.1.2
+torchvision==0.16.2
+torchaudio==2.1.2
+
+# -------------------------
+# Scientific ML
+# -------------------------
+scikit-learn==1.3.2
+
+# -------------------------
+# EEG Processing
+# -------------------------
+mne==1.6.1
+
+# -------------------------
+# Visualization (optional but standard)
+# -------------------------
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# -------------------------
+# Jupyter Environment
+# -------------------------
+jupyterlab==4.0.9
+ipykernel==6.27.1
+
+# -------------------------
+# Misc / Quality of Life
+# -------------------------
+pyyaml==6.0.1

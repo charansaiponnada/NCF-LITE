@@ -1,5 +1,8 @@
 /dataset
+/venv
 NCF.py
 parkinsons_data.pdf
 parkinsons_Model.ipynb
 prof_metrics(NCF).txt
+__pycache__/
+.ipynb_checkpoints/ 
