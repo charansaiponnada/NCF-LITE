@@ -5,8 +5,9 @@
 /venv/
 /env/
 /.venv/
-
+test-2/var/models/*.pth
 # Python
+__pycache__/
 *.pyc
 .pytest_cache/
 __pycache__/
@@ -49,6 +50,12 @@ models/__pycache__/
 models/*.pkl
 models/*.h5
 models/*.pt
+models/*.pth
+Models/__pycache__/
+Models/*.pkl
+Models/*.h5
+Models/*.pt
+Models/*.pth
 
 
 # Logs
