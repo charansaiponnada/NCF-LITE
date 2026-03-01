@@ -1,10 +1,57 @@
-/dataset
-/venv
-NCF.py
-parkinsons_data.pdf
-parkinsons_Model.ipynb
-prof_metrics(NCF).txt
-__pycache__/
-.ipynb_checkpoints/ 
+# Dataset
+/dataset/
 
-models/__pycache__
+# Virtual environments
+/venv/
+/env/
+/.venv/
+
+# Python
+*.pyc
+.pytest_cache/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Models
+models/__pycache__/
+models/*.pkl
+models/*.h5
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
