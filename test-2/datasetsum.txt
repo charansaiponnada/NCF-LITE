@@ -1,0 +1,408 @@
+[INFO] Loaded labels: 168 entries
+[INFO] Class distribution: {1: 112, 0: 56}
+[INFO] Found 168 EDF files
+[INFO] Matched recordings: 168 | Subjects: 168
+[INFO] Matched class distribution: {0: 56, 1: 112}
+Scanning channels: 100%|██████████████████████████████████████████████████████████████████████████| 168/168 [00:14<00:00, 11.49it/s]
+[INFO] Canonical EEG channels (intersection): 67
+
+======================================================================
+[fold01] Train subjects: 134 | Val subjects: 34
+[fold01] Train recs: 134 | Val recs: 34
+======================================================================
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████| 134/134 [00:16<00:00,  7.97it/s]
+Loading & windowing: 100%|██████████████████████████████████████████████████████████████████████████| 34/34 [00:05<00:00,  6.48it/s]
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████| 134/134 [00:18<00:00,  7.07it/s]
+Loading & windowing (MIL bags): 100%|█████████████████████████████████████████████████████████████| 134/134 [00:24<00:00,  5.53it/s]
+C:\projects\NCF-lite\venv\lib\site-packages\torch\nn\modules\transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[fold01] Model params: 113835
+[fold01] Evaluating epoch 1...
+[fold01] ep001 | VAL(win) acc=0.6156 bacc=0.5000 f1=0.7621 auc=0.4979 | VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5810        
+[fold01] Evaluating epoch 2...
+[fold01] Eval returned: <class 'tuple'>
+[fold01] ep002 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4684 | VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4783        
+[fold01] Evaluating epoch 3...
+[fold01] Eval returned: <class 'tuple'>
+[fold01] ep003 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.5004 | VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5000        
+[fold01] Evaluating epoch 4...
+[fold01] Eval returned: <class 'tuple'>
+[fold01] ep004 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.5141 | VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5751        
+[fold01] Evaluating epoch 5...
+[fold01] Eval returned: <class 'tuple'>
+[fold01] ep005 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4917 | VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.6225        
+Traceback (most recent call last):
+  File "C:\projects\NCF-lite\test-2\NCF.py", line 937, in <module>
+    model, win_m, subj_m = train_one_fold(fold, train_df, val_df, canon, extract_windows_from_raw)
+  File "C:\projects\NCF-lite\test-2\NCF.py", line 717, in train_one_fold
+    best_thr, best_train_subj_m = tune_threshold_subject_bacc(model, pool, train_loader_cal, keep_frac=0.60)
+NameError: name 'tune_threshold_subject_bacc' is not defined
+
+
+
+
+
+
+==============================================================================================
+
+Key CPU Optimizations Applied:
+1. Thread Limiting (prevents CPU overload)
+
+Limited to 4 threads for all libraries
+Set at the very beginning before imports
+
+2. Reduced Batch Sizes
+
+Main batch: 64 → 8
+MIL batch: 16 → 2
+BAG_SIZE: 12 → 4
+
+3. Simplified Model
+
+d_model: 64 → 48
+n_heads: 4 → 2
+n_layers: 2 → 1
+
+4. Removed CUDA-specific code
+
+No torch.cuda.amp (AMP)
+No GradScaler
+No pin_memory
+No non_blocking transfers
+num_workers=0 in all DataLoaders
+
+5. Reduced Training Time
+
+epochs: 5 → 3
+patience: 12 → 5
+
+
+
+==============================================
+
+(venv) PS C:\projects\NCF-lite\test-2> python  cpu_fixed_var.py
+[INFO] Running on CPU with 4 threads
+[INFO] Loaded labels: 168 entries
+[INFO] Class distribution: {1: 112, 0: 56}
+[INFO] Found 168 EDF files
+[INFO] Matched recordings: 168 | Subjects: 168
+[INFO] Matched class distribution: {0: 56, 1: 112}
+Scanning channels: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 168/168 [00:15<00:00, 11.18it/s]
+[INFO] Canonical EEG channels: 67
+
+======================================================================
+[fold01] Train subjects: 134 | Val subjects: 34
+[fold01] Train recs: 134 | Val recs: 34
+======================================================================
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 134/134 [00:17<00:00,  7.54it/s]
+Loading & windowing: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 34/34 [00:05<00:00,  6.41it/s]
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 134/134 [00:18<00:00,  7.21it/s]
+Loading & windowing (MIL bags): 100%|█████████████████████████████████████████████████████████████████████████████| 134/134 [00:24<00:00,  5.46it/s]
+[fold01] Training class distribution: Class0=45, Class1=89
+C:\projects\NCF-lite\venv\lib\site-packages\torch\nn\modules\transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[fold01] Model params: 90106
+[fold01] Loss class weights: Class0=3.96, Class1=1.00
+[fold01] Evaluating epoch 1...
+[fold01] ep001 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4829 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4842 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] ✓ Model saved: fold01_epoch001_subjBAcc0.5000_subjF10.8070_winBAcc0.5000.pth
+[fold01] Evaluating epoch 2...                                                                                                                       
+[fold01] ep002 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4952 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4625 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 3...                                                                                                                       
+[fold01] ep003 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4730 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4269 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 4...                                                                                                                       
+[fold01] ep004 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.5085 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4565 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 5...                                                                                                                       
+[fold01] ep005 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.5017 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4585 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 6...                                                                                                                       
+[fold01] ep006 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4791 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4249 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 7...                                                                                                                       
+[fold01] ep007 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4646 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4111 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 8...                                                                                                                       
+[fold01] ep008 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4699 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4328 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 9...                                                                                                                       
+[fold01] ep009 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4683 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4249 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 10...                                                                                                                      
+[fold01] ep010 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4748 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4209 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Evaluating epoch 11...                                                                                                                      
+[fold01] ep011 | VAL(win) acc=0.3844 bacc=0.5000 f1=0.0000 auc=0.4885 CM=[TN:565, FP:0, FN:905, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4506 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold01] Early stop at ep011 (best subj_bacc=0.5000 at epoch 1)
+[fold01] Train-only tuned subject threshold: thr=0.050 | train_subj_bacc=0.5000 f1=0.7982 prec=0.6642 rec=1.0000
+
+======================================================================
+[fold02] Train subjects: 134 | Val subjects: 34
+[fold02] Train recs: 134 | Val recs: 34
+======================================================================
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 134/134 [00:16<00:00,  8.23it/s] 
+Loading & windowing: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 34/34 [00:05<00:00,  6.44it/s] 
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 134/134 [00:18<00:00,  7.18it/s] 
+Loading & windowing (MIL bags): 100%|█████████████████████████████████████████████████████████████████████████████| 134/134 [00:24<00:00,  5.57it/s] 
+[fold02] Training class distribution: Class0=44, Class1=90
+C:\projects\NCF-lite\venv\lib\site-packages\torch\nn\modules\transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[fold02] Model params: 90106
+[fold02] Loss class weights: Class0=4.09, Class1=1.00
+[fold02] Evaluating epoch 1...
+[fold02] ep001 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5142 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5095 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] ✓ Model saved: fold02_epoch001_subjBAcc0.5000_subjF10.7857_winBAcc0.5000.pth
+[fold02] Evaluating epoch 2...
+[fold02] ep002 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5260 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.4602 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 3...                                                                                                                       
+[fold02] ep003 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.4997 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.4886 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 4...                                                                                                                       
+[fold02] ep004 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5082 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.4886 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 5...                                                                                                                       
+[fold02] ep005 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5187 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5549 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 6...                                                                                                                       
+[fold02] ep006 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.4970 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5644 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 7...                                                                                                                       
+[fold02] ep007 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.4994 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5492 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 8...                                                                                                                       
+[fold02] ep008 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5114 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5511 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 9...                                                                                                                       
+[fold02] ep009 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5218 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5530 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 10...                                                                                                                      
+[fold02] ep010 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5209 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5663 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Evaluating epoch 11...                                                                                                                      
+[fold02] ep011 | VAL(win) acc=0.3742 bacc=0.5000 f1=0.0000 auc=0.5259 CM=[TN:583, FP:0, FN:975, TP:0]                                                
+          VAL(subj) acc=0.6471 bacc=0.5000 f1=0.7857 auc=0.5398 CM=[TN:0, FP:12, FN:0, TP:22]
+[fold02] Early stop at ep011 (best subj_bacc=0.5000 at epoch 1)
+[fold02] Train-only tuned subject threshold: thr=0.050 | train_subj_bacc=0.5000 f1=0.8036 prec=0.6716 rec=1.0000                                     
+
+======================================================================
+[fold03] Train subjects: 135 | Val subjects: 33
+[fold03] Train recs: 135 | Val recs: 33
+======================================================================
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 135/135 [00:17<00:00,  7.80it/s] 
+Loading & windowing: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 33/33 [00:04<00:00,  7.06it/s] 
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 135/135 [00:28<00:00,  4.78it/s] 
+Loading & windowing (MIL bags): 100%|█████████████████████████████████████████████████████████████████████████████| 135/135 [00:32<00:00,  4.13it/s]
+[fold03] Training class distribution: Class0=45, Class1=90
+C:\projects\NCF-lite\venv\lib\site-packages\torch\nn\modules\transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[fold03] Model params: 90106
+[fold03] Loss class weights: Class0=4.00, Class1=1.00
+[fold03] Evaluating epoch 1...
+[fold03] ep001 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.4980 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5434 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] ✓ Model saved: fold03_epoch001_subjBAcc0.5000_subjF10.8000_winBAcc0.5000.pth
+[fold03] Evaluating epoch 2...                                                                                                                       
+[fold03] ep002 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5166 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.4483 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 3...
+[fold03] ep003 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5004 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5000 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 4...                                                                                                                       
+[fold03] ep004 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5289 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5992 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 5...                                                                                                                       
+[fold03] ep005 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5414 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.3939 bacc=0.5455 f1=0.1667 auc=0.6921 CM=[TN:11, FP:0, FN:20, TP:2]
+[fold03] ✓ Model saved: fold03_epoch005_subjBAcc0.5455_subjF10.1667_winBAcc0.5000.pth
+[fold03] Evaluating epoch 6...                                                                                                                       
+[fold03] ep006 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5067 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5702 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 7...                                                                                                                       
+[fold03] ep007 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5201 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5744 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 8...                                                                                                                       
+[fold03] ep008 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5220 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6074 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 9...
+[fold03] ep009 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5315 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5785 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 10...                                                                                                                      
+[fold03] ep010 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5128 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5702 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 11...                                                                                                                      
+[fold03] ep011 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5026 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5826 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 12...                                                                                                                      
+[fold03] ep012 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5002 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5909 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 13...                                                                                                                      
+[fold03] ep013 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.4999 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5868 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 14...                                                                                                                      
+[fold03] ep014 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5046 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5868 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Evaluating epoch 15...                                                                                                                      
+[fold03] ep015 | VAL(win) acc=0.3071 bacc=0.5000 f1=0.0000 auc=0.5028 CM=[TN:406, FP:0, FN:916, TP:0]                                                
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5909 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold03] Early stop at ep015 (best subj_bacc=0.5455 at epoch 5)
+[fold03] Train-only tuned subject threshold: thr=0.230 | train_subj_bacc=0.5222 f1=0.0851 prec=1.0000 rec=0.0444                                     
+
+======================================================================
+[fold04] Train subjects: 134 | Val subjects: 34
+[fold04] Train recs: 134 | Val recs: 34
+======================================================================
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 134/134 [00:19<00:00,  7.04it/s] 
+Loading & windowing: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 34/34 [00:05<00:00,  6.45it/s] 
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 134/134 [00:20<00:00,  6.51it/s] 
+Loading & windowing (MIL bags): 100%|█████████████████████████████████████████████████████████████████████████████| 134/134 [00:24<00:00,  5.41it/s]
+[fold04] Training class distribution: Class0=45, Class1=89
+C:\projects\NCF-lite\venv\lib\site-packages\torch\nn\modules\transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[fold04] Model params: 90106
+[fold04] Loss class weights: Class0=3.96, Class1=1.00
+[fold04] Evaluating epoch 1...
+[fold04] ep001 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5236 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.7055 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] ✓ Model saved: fold04_epoch001_subjBAcc0.5000_subjF10.8070_winBAcc0.5000.pth
+[fold04] Evaluating epoch 2...                                                                                                                       
+[fold04] ep002 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5250 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4842 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 3...                                                                                                                       
+[fold04] ep003 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.4875 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.4743 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 4...                                                                                                                       
+[fold04] ep004 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.4892 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5040 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 5...
+[fold04] ep005 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5368 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.6067 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 6...                                                                                                                       
+[fold04] ep006 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5460 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5613 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 7...                                                                                                                       
+[fold04] ep007 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5208 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5059 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 8...                                                                                                                       
+[fold04] ep008 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5374 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5534 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 9...                                                                                                                       
+[fold04] ep009 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5353 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5415 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 10...                                                                                                                      
+[fold04] ep010 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5427 CM=[TN:417, FP:0, FN:953, TP:0]                                                
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5494 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Evaluating epoch 11...
+[fold04] ep011 | VAL(win) acc=0.3044 bacc=0.5000 f1=0.0000 auc=0.5441 CM=[TN:417, FP:0, FN:953, TP:0]
+          VAL(subj) acc=0.6765 bacc=0.5000 f1=0.8070 auc=0.5613 CM=[TN:0, FP:11, FN:0, TP:23]
+[fold04] Early stop at ep011 (best subj_bacc=0.5000 at epoch 1)
+[fold04] Train-only tuned subject threshold: thr=0.050 | train_subj_bacc=0.5000 f1=0.7982 prec=0.6642 rec=1.0000
+
+======================================================================
+[fold05] Train subjects: 135 | Val subjects: 33
+[fold05] Train recs: 135 | Val recs: 33
+======================================================================
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 135/135 [00:17<00:00,  7.54it/s] 
+Loading & windowing: 100%|██████████████████████████████████████████████████████████████████████████████████████████| 33/33 [00:04<00:00,  7.61it/s] 
+Loading & windowing: 100%|████████████████████████████████████████████████████████████████████████████████████████| 135/135 [00:21<00:00,  6.38it/s] 
+Loading & windowing (MIL bags): 100%|█████████████████████████████████████████████████████████████████████████████| 135/135 [00:26<00:00,  5.19it/s] 
+[fold05] Training class distribution: Class0=45, Class1=90
+C:\projects\NCF-lite\venv\lib\site-packages\torch\nn\modules\transformer.py:282: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.norm_first was True
+  warnings.warn(f"enable_nested_tensor is True, but self.use_nested_tensor is False because {why_not_sparsity_fast_path}")
+[fold05] Model params: 90106
+[fold05] Loss class weights: Class0=4.00, Class1=1.00
+[fold05] Evaluating epoch 1...                                                                                                                       
+[fold05] ep001 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5349 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5331 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] ✓ Model saved: fold05_epoch001_subjBAcc0.5000_subjF10.8000_winBAcc0.5000.pth
+[fold05] Evaluating epoch 2...
+[fold05] ep002 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5020 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6302 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 3...
+[fold05] ep003 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4972 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6694 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 4...
+[fold05] ep004 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5345 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5826 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 5...
+[fold05] ep005 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5140 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5785 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 5...
+[fold05] ep005 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5140 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5785 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 6...
+[fold05] ep005 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5140 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5785 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 6...
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5785 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 6...
+[fold05] Evaluating epoch 6...
+[fold05] ep006 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4917 CM=[TN:385, FP:0, FN:883, TP:0]
+[fold05] ep006 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4917 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6054 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 7...
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6054 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 7...
+[fold05] Evaluating epoch 7...
+[fold05] ep007 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5271 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6095 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 8...
+[fold05] ep008 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4919 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6302 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] ep007 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5271 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6095 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 8...
+[fold05] ep008 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4919 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6302 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] ep008 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4919 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6302 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 9...
+[fold05] ep009 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4538 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6012 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 10...
+[fold05] Evaluating epoch 9...
+[fold05] ep009 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.4538 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6012 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 10...
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6012 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 10...
+[fold05] ep010 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5043 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6074 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 11...
+[fold05] ep010 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5043 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.6074 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Evaluating epoch 11...
+[fold05] Evaluating epoch 11...
+[fold05] ep011 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5108 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5847 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] ep011 | VAL(win) acc=0.3036 bacc=0.5000 f1=0.0000 auc=0.5108 CM=[TN:385, FP:0, FN:883, TP:0]
+          VAL(subj) acc=0.6667 bacc=0.5000 f1=0.8000 auc=0.5847 CM=[TN:0, FP:11, FN:0, TP:22]
+[fold05] Early stop at ep011 (best subj_bacc=0.5000 at epoch 1)
+[fold05] Train-only tuned subject threshold: thr=0.050 | train_subj_bacc=0.5000 f1=0.8000 prec=0.6667 rec=1.0000
+
+
+########################################################################
+FOLD-WISE RESULTS:
+[fold01] WIN  acc=0.6156 bacc=0.5000 prec=0.6156 rec=1.0000 f1=0.7621 auc=0.4829
+         SUBJ acc=0.6765 bacc=0.5000 prec=0.6765 rec=1.0000 f1=0.8070 auc=0.4842
+[fold02] WIN  acc=0.6258 bacc=0.5000 prec=0.6258 rec=1.0000 f1=0.7698 auc=0.5142
+         SUBJ acc=0.6471 bacc=0.5000 prec=0.6471 rec=1.0000 f1=0.7857 auc=0.5095
+[fold03] WIN  acc=0.4607 bacc=0.5395 prec=0.7470 rec=0.3352 f1=0.4627 auc=0.5414
+         SUBJ acc=0.3939 bacc=0.5455 prec=1.0000 rec=0.0909 f1=0.1667 auc=0.6921
+[fold04] WIN  acc=0.6956 bacc=0.5000 prec=0.6956 rec=1.0000 f1=0.8205 auc=0.5236
+         SUBJ acc=0.6765 bacc=0.5000 prec=0.6765 rec=1.0000 f1=0.8070 auc=0.7055
+[fold05] WIN  acc=0.6964 bacc=0.5000 prec=0.6964 rec=1.0000 f1=0.8210 auc=0.5349
+         SUBJ acc=0.6667 bacc=0.5000 prec=0.6667 rec=1.0000 f1=0.8000 auc=0.5331
+
+########################################################################
+OVERALL (mean ± std across folds):
+WIN : acc=0.6188±0.0860 | bacc=0.5079±0.0158 | prec=0.6761±0.0490 | rec=0.8670±0.2659 | f1=0.7272±0.1345 | auc=0.5194±0.0205
+SUBJ: acc=0.6121±0.1096 | bacc=0.5091±0.0182 | prec=0.7333±0.1338 | rec=0.8182±0.3636 | f1=0.6733±0.2534 | auc=0.5849±0.0944
+########################################################################
+
+✓ Training summary saved: C:\projects\NCF-lite\test-2\var\models\training_summary.json
